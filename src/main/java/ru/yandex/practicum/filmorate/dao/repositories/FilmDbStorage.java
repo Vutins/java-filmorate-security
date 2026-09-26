@@ -298,13 +298,13 @@ public class FilmDbStorage implements FilmStorage {
                 """;
 
         String placeholders = String.join(",", Collections.nCopies(filmIds.size(), "?"));
-
+        // nosemgrep: filmorate-sql-injection-concat -- placeholders are only '?' chars, data passed via parameters
         List<Film> films = jdbc.query(String.format(FIND_FILMS_BY_IDS_QUERY, placeholders), mapper, filmIds.toArray());
 
         if (films.isEmpty()) {
             return List.of();
         }
-
+        // nosemgrep: filmorate-sql-injection-concat -- placeholders are only '?' chars, data passed via parameters
         Map<Long, Set<Genre>> filmsGenres = jdbc.query(String.format(FIND_GENRES_FOR_FILMS_QUERY, placeholders), new FilmsIdsWithGenresExtractor(), filmIds.toArray());
 
         List<Film> result = new ArrayList<>();
@@ -514,6 +514,7 @@ public class FilmDbStorage implements FilmStorage {
                 """;
 
         String placeholders = String.join(",", Collections.nCopies(filmIds.size(), "?"));
+        // nosemgrep: filmorate-sql-injection-concat -- placeholders are only '?' chars, data passed via parameters
         return jdbc.query(String.format(FIND_GENRES_FOR_FILMS_QUERY, placeholders), new FilmsIdsWithGenresExtractor(), filmIds.toArray());
     }
 
