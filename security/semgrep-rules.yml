@@ -1,0 +1,11 @@
+rules:
+  - id: filmorate-sql-injection-concat
+    patterns:
+      - pattern-either:
+          - pattern: $JDBC.query("..." + $VAR, ...)
+          - pattern: $JDBC.update("..." + $VAR, ...)
+          - pattern: $JDBC.query(String.format(...), ...)
+          - pattern: $JDBC.update(String.format(...), ...)
+    message: "Potential SQL injection via string concatenation or String.format. Use parameterized queries with ? placeholders."
+    languages: [java]
+    severity: ERROR

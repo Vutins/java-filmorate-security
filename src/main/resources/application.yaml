@@ -1,0 +1,21 @@
+logging:
+  level:
+    org.hibernate: ERROR
+    root: INFO
+    org.springframework: WARN
+    org.springframework.web: DEBUG
+    org.springframework.validation: DEBUG
+
+spring:
+  sql:
+    init:
+      continue-on-error: true
+      mode: always
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  error:
+    include-binding-errors: always
+    include-message: always

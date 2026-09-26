@@ -181,7 +181,7 @@ public class UserDbStorage implements UserStorage {
                 WHERE id IN (%s);
                 """;
         final String sqlPlaceholders = String.join(",", Collections.nCopies(ids.size(), "?"));
-
+        // nosemgrep: filmorate-sql-injection-concat -- placeholders are only '?' chars, data passed via parameters
         return jdbc.query(String.format(FIND_USERS_BY_IDS_QUERY, sqlPlaceholders), mapper, ids.toArray());
     }
 
